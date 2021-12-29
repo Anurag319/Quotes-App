@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes App</title>
+    <style>
+        html,body{
+            background-color: rgb(223, 226, 33);
+            top: 20%;
+        }
+
+        .square{
+            height: 100vh;
+            display: flex;
+        }
+        .container2{
+            background-color: aqua;
+            width: 33%;
+            margin: auto;
+            /* height: auto; */
+            /* min-height: 40vh; */
+            padding: 50px 0px 20px 0px;
+            border: 3px solid blue;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            transition: all 1s ease-in 0.2s;
+        }
+
+        .outside{
+            background-color: blueviolet;
+            width: 40%;
+            border: 2px solid red;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 220px;
+            height: auto;
+        }
+        .container2:hover{
+            background-color: black;
+            color: white;
+            border: 3px solid black;
+            transform: scale(1.4);
+            box-shadow: 0px 0px 4px 12px rgb(136, 225, 228)
+        }
+        .container2 img{
+            width: 60px;
+            margin-left: 80%;
+            margin-right: 20%;
+            filter: invert(30%);
+        }
+        #quotes{
+            font-weight: bold;
+            padding: 14px;
+            height: auto;
+            padding: 30px;
+            text-align: center;
+        }
+        #author{
+            font-weight: bold;
+            padding: 14px;
+            text-align: center;         
+        }
+        #qbtn{
+            padding: 5px;
+            display: block;
+            margin: auto;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgb(176, 236, 97);
+        }
+        #qbtn:hover{
+            color: red;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="square">
+        <div class="container2">
+            <img src="twitter.png" alt="error 404">
+            <div class="main">
+                <div id="quotes">
+                    <!-- hello Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut harum assumenda totam sequi fuga aliquid rerumobcaecati. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsa ad Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, excepturi! Nulla optio, in placeat ad saepe maiores excepturi. Adipisci sint soluta libero consectetur doloremque voluptates saepe asperiores esse magnam impedit. -->
+                </div>
+                <div id="author">
+                    <!-- gggg -->
+                </div>
+            </div>
+    
+            <button id="qbtn" >New Quotes</button>
+        </div>
+    </div>
+
+
+    <script>
+        let readData = "";
+
+        const getNewQuotes = () =>{
+            const quotes = document.getElementById("quotes");
+            const author = document.getElementById("author");
+            let ran = Math.floor(Math.random()*1642);
+            console.log(ran);
+            quotes.innerText = readData[ran].text;
+            let authorname = readData[ran].author; 
+            if(authorname==null) authorname = "unknown";
+            author.innerText = authorname; 
+        }
+        const getQuotes = async () =>{
+            const api = "https://type.fit/api/quotes";
+            try {
+                let data = await fetch(api);
+                readData = await data.json();
+                // console.log(readData);
+                getNewQuotes();
+            } catch (error) {
+                
+            }
+        }
+        getQuotes();
+        document.addEventListener("click",getNewQuotes);
+
+    </script>
+</body>
+</html>
